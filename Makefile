@@ -12,7 +12,7 @@ start:
 		-v /root/.dockercfg:/root/.dockercfg \
 		-v /tmp:/tmp \
 		-v /var/run/docker.sock:/var/run/docker.sock \
-		-e WEBHOOK=$(WEBHOOK) \
+		-e WEBHOOK=$(KV_WEBHOOK) \
 		--restart=always \
 		$(PORT) $(IMAGE)
 
