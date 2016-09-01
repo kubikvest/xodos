@@ -30,5 +30,5 @@ end
 
 ngx.eof()
 
-os.execute("cd " .. data.repository.name .. "; make deploy")
+os.execute("cd " .. data.repository.name .. "; make deploy -I ../../")
 os.execute("curl -X POST -d '{\"username\": \"Xodos\", \"icon_emoji\": \":xodos:\", \"text\":\"Deploy " .. data.repository.name .. "\"}' " .. webhook)
