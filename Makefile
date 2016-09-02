@@ -1,14 +1,11 @@
 include vars.mk
 
-IMAGE = kubikvest/xodos
-CONTAINERS = kubikvest_webhook
+IMAGE = imegateleport/xodos
+CONTAINER = kubikvest_webhook
 PORT = -p 8301:80
 
-build:
-	@docker build -t $(IMAGE) .
-
 start:
-	@docker run -d --name kubikvest_webhook \
+	@docker run -d --name $(CONTAINER) \
 		-v /root/.dockercfg:/root/.dockercfg \
 		-v /tmp:/tmp \
 		-v /var/run/docker.sock:/var/run/docker.sock \
@@ -17,10 +14,7 @@ start:
 		$(PORT) $(IMAGE)
 
 stop:
-	@-docker stop $(CONTAINERS)
+	@-docker stop $(CONTAINER)
 
 clean: stop
-	@-docker rm -fv $(CONTAINERS)
-
-destroy: clean
-	@-docker rmi -f $(IMAGE)
+	@-docker rm -fv $(CONTAINER)
