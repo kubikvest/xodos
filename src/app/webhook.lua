@@ -15,6 +15,7 @@
 -- along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 local json = require "cjson"
+local sha1 = require "sha1"
 
 local webhook = ngx.var.webhook
 
