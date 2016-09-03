@@ -16,6 +16,7 @@ build:
 			git \
 			curl \
 			make \
+			docker@v32 \
 			" \
 		-d="lua5.1 luarocks@community"
 
