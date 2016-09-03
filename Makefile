@@ -1,8 +1,22 @@
 include vars.mk
 
-IMAGE = imegateleport/xodos
+IMAGE = kubikvest/xodos
 CONTAINER = kubikvest_webhook
 PORT = -p 8301:80
+
+build:
+	@docker run --rm \
+		-v $(CURDIR)/runner:/runner \
+		-v $(CURDIR)/build:/build \
+		-v $(CURDIR)/src:/src \
+		imega/base-builder \
+		--packages=" \
+			nginx-lua \
+			lua5.1-cjson \
+			git \
+			curl \
+			" \
+		-d="lua5.1 luarocks@community"
 
 start:
 	@docker run -d --name $(CONTAINER) \
@@ -18,3 +32,5 @@ stop:
 
 clean: stop
 	@-docker rm -fv $(CONTAINER)
+
+.PHONY: build
