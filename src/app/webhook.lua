@@ -30,5 +30,7 @@ end
 
 ngx.eof()
 
-os.execute("cd " .. data.repository.name .. "; make deploy -I ../")
+os.execute("cd /tmp; git clone " .. data.repository.clone_url)
+os.execute("cd /tmp/" .. data.repository.name .. "; make deploy -I ../")
+os.execute("rm -rf /tmp/" .. data.repository.name)
 os.execute("curl -X POST -d '{\"username\": \"Xodos\", \"icon_emoji\": \":xodos:\", \"text\":\"Deploy " .. data.repository.name .. "\"}' " .. webhook)
