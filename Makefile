@@ -15,6 +15,7 @@ build:
 			lua5.1-cjson \
 			git \
 			curl \
+			make \
 			" \
 		-d="lua5.1 luarocks@community"
 
