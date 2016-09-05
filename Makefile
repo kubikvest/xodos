@@ -1,4 +1,4 @@
-#include vars.mk
+include vars.mk
 
 IMAGE = kubikvest/xodos
 CONTAINER = kubikvest_webhook
