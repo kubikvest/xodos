@@ -29,6 +29,12 @@ if not jsonErrorParse then
     ngx.exit(ngx.status)
 end
 
+if data.res ~= "refs/heads/master" then
+    ngx.status = ngx.HTTP_OK
+    ngx.say("200 HTTP_OK")
+    ngx.exit(ngx.status)
+end
+
 ngx.eof()
 
 os.execute("cd /tmp; git clone " .. data.repository.clone_url)
