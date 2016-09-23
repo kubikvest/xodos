@@ -45,15 +45,17 @@ local jsonErrorParse, data = pcall(json.encode,{
     username = "Xodos",
     icon_emoji = ":xodos:",
     attachments = {
-        color = "#36a64f",
-        author_name = data.head_commit.committer.name,
-        title = "Показать правки",
-        title_link = data.head_commit.url,
-        text = data.head_commit.message,
-        fields = {
-            title = "Deployment success"
-        }
-    }
+        {
+            color = "#36a64f",
+            author_name = data.head_commit.committer.name,
+            title = "Показать правки",
+            title_link = data.head_commit.url,
+            text = data.head_commit.message,
+            fields = {
+                { title = "Deployment success" },
+            }
+        },
+    },
 })
 
 if not jsonErrorParse then
