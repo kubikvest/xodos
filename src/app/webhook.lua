@@ -39,7 +39,7 @@ ngx.eof()
 
 os.execute("cd /tmp; git clone " .. data.repository.clone_url)
 os.execute("cd /tmp/" .. data.repository.name .. "; make deploy -I ../")
-os.execute("rm -rf /tmp/" .. data.repository.name)
+os.execute("cd /;rm -rf /tmp/" .. data.repository.name)
 
 local jsonErrorParse, data = pcall(json.encode,{
     username = "Xodos",
