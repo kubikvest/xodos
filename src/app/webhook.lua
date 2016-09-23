@@ -29,7 +29,7 @@ if not jsonErrorParse then
     ngx.exit(ngx.status)
 end
 
-if data.res ~= "refs/heads/master" then
+if data.ref ~= "refs/heads/master" then
     ngx.status = ngx.HTTP_OK
     ngx.say("200 HTTP_OK")
     ngx.exit(ngx.status)
@@ -37,9 +37,7 @@ end
 
 ngx.eof()
 
---os.execute("cd /tmp; git clone " .. data.repository.clone_url)
---os.execute("cd /tmp/" .. data.repository.name .. "; make deploy -I ../")
---os.execute("rm -rf /tmp/" .. data.repository.name)
+os.execute("cd /tmp; git clone " .. data.repository.clone_url)
+os.execute("cd /tmp/" .. data.repository.name .. "; make deploy -I ../")
+os.execute("rm -rf /tmp/" .. data.repository.name)
 os.execute("curl -X POST -d '{\"username\": \"Xodos\", \"icon_emoji\": \":xodos:\", \"text\":\"Deploy " .. data.repository.name .. "\"}' " .. webhook)
-os.execute("echo 123123 >> /1.txt")
-os.execute("echo \"" .. webhook .. "\" >> /1.txt")
