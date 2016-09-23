@@ -40,4 +40,26 @@ ngx.eof()
 os.execute("cd /tmp; git clone " .. data.repository.clone_url)
 os.execute("cd /tmp/" .. data.repository.name .. "; make deploy -I ../")
 os.execute("rm -rf /tmp/" .. data.repository.name)
-os.execute("curl -X POST -d '{\"username\": \"Xodos\", \"icon_emoji\": \":xodos:\", \"text\":\"Deploy " .. data.repository.name .. "\"}' " .. webhook)
+
+local jsonErrorParse, data = pcall(json.encode,{
+    username = "Xodos",
+    icon_emoji = ":xodos:",
+    attachments = {
+        color = "#36a64f",
+        author_name = data.commits.committer.name,
+        title = "Показать правки",
+        title_link = data.commits.url,
+        text = data.commits.message,
+        fields = {
+            title = "Deployment success"
+        }
+    }
+})
+
+if not jsonErrorParse then
+    ngx.status = ngx.HTTP_INTERNAL_SERVER_ERROR
+    ngx.say("500 HTTP_INTERNAL_SERVER_ERROR")
+    ngx.exit(ngx.status)
+end
+
+os.execute("curl -X POST -d '" .. data .. "' " .. webhook)
