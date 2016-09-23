@@ -46,10 +46,10 @@ local jsonErrorParse, data = pcall(json.encode,{
     icon_emoji = ":xodos:",
     attachments = {
         color = "#36a64f",
-        author_name = data.commits.committer.name,
+        author_name = data.head_commit.committer.name,
         title = "Показать правки",
-        title_link = data.commits.url,
-        text = data.commits.message,
+        title_link = data.head_commit.url,
+        text = data.head_commit.message,
         fields = {
             title = "Deployment success"
         }
