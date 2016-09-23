@@ -4,7 +4,10 @@ IMAGE = kubikvest/xodos
 CONTAINER = kubikvest_webhook
 PORT = -p 8301:80
 
-build:
+build: buildfs
+	@docker build -t $(IMAGE) .
+
+buildfs:
 	@docker run --rm \
 		-v $(CURDIR)/runner:/runner \
 		-v $(CURDIR)/build:/build \
@@ -20,7 +23,7 @@ build:
 			" \
 		-d="lua5.1 luarocks@community"
 
-start:
+start: build
 	@docker run -d --name $(CONTAINER) \
 		-v /root/.dockercfg:/root/.dockercfg \
 		-v /tmp:/tmp \
@@ -34,5 +37,8 @@ stop:
 
 clean: stop
 	@-docker rm -fv $(CONTAINER)
+
+destroy:
+	@-docker rmi $(IMAGE)
 
 .PHONY: build
