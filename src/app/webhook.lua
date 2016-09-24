@@ -29,12 +29,14 @@ if not jsonErrorParse then
     ngx.exit(ngx.status)
 end
 
-if data.ref ~= "refs/heads/master" then
+if data.action ~= "closed" or data.pull_request.merged == false then
     ngx.status = ngx.HTTP_OK
     ngx.say("200 HTTP_OK")
     ngx.exit(ngx.status)
 end
 
+ngx.status = ngx.HTTP_OK
+ngx.say("200 HTTP_OK")
 ngx.eof()
 
 os.execute("cd /tmp; git clone " .. data.repository.clone_url .. "; cd /tmp/" .. data.repository.name .. "; make deploy -I ../; cd /;rm -rf /tmp/" .. data.repository.name)
