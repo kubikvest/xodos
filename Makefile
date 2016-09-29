@@ -7,7 +7,7 @@ PORT = -p 8301:80
 DOCKER_RM = false
 
 build:
-	@docker build -t $(IMAGE) .
+	@docker build -t $(IMAGE):$(TAG) .
 
 buildfs:
 	@docker run --rm \
@@ -34,7 +34,7 @@ start:
 		--restart=always \
 		$(PORT) $(IMAGE):$(TAG)
 
-test:
+test: build start
 	@docker run --rm=$(DOCKER_RM) \
 		-v $(CURDIR)/tests:/data \
 		-w /data \
