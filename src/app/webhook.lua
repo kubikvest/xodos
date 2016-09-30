@@ -47,10 +47,10 @@ local jsonErrorParse, data = pcall(json.encode,{
     attachments = {
         {
             color = "#36a64f",
-            author_name = data.head_commit.committer.name,
+            author_name = data.pull_request.user.login,
             title = "Показать правки",
-            title_link = data.head_commit.url,
-            text = data.head_commit.message,
+            title_link = data.pull_request.html_url,
+            text = data.pull_request.title,
             fields = {
                 { title = "Deployment success" },
             }
