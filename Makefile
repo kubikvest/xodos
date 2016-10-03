@@ -2,7 +2,7 @@ include vars.mk
 
 IMAGE = kubikvest/xodos
 CONTAINER = kubikvest_webhook
-TAG = 1.0.1
+TAG = 1.0.2
 PORT = -p 8301:80
 DOCKER_RM = false
 

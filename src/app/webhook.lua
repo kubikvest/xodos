@@ -39,20 +39,28 @@ ngx.status = ngx.HTTP_OK
 ngx.say("200 HTTP_OK")
 ngx.eof()
 
-os.execute("cd /tmp; git clone " .. data.repository.clone_url .. "; cd /tmp/" .. data.repository.name .. "; make deploy -I ../; cd /;rm -rf /tmp/" .. data.repository.name)
+local color = "#a63636"
+local msg   = "fail"
+
+local result = os.execute("cd /tmp; git clone " .. data.repository.clone_url .. "; cd /tmp/" .. data.repository.name .. "; make deploy -I ../; cd /;rm -rf /tmp/" .. data.repository.name)
+
+if result == 0 then
+    color = "#36a64f"
+    msg = "success"
+end
 
 local jsonErrorParse, data = pcall(json.encode,{
     username = "Xodos",
     icon_emoji = ":xodos:",
     attachments = {
         {
-            color = "#36a64f",
+            color = color,
             author_name = data.pull_request.user.login,
             title = "Показать правки",
             title_link = data.pull_request.html_url,
             text = data.pull_request.title,
             fields = {
-                { title = "Deployment success" },
+                { title = "Deployment " .. msg },
             }
         },
     },
